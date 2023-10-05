@@ -1,0 +1,259 @@
+	crea cluister locale					PROMPT $G				COLOR F0
+kind create cluster
+
+	versione gatekeeper rilasciata
+kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/master/deploy/gatekeeper.yaml
+
+	inserire risorsa, constraint, template o eseguire i test
+kubectl apply -f risorsa.yaml
+
+
+
+												limit of container:
+
+cd C:\Users\Enrico\OneDrive\Desktop\template_constarint_test\policy_test\limited_container
+
+kubectl get node
+
+kubectl apply -f limited_container_template.yaml
+
+kubectl apply -f constraint.yaml
+
+kubectl apply -f disallowed-cpu.yaml
+
+kubectl apply -f disallowed-memory.yaml
+
+kubectl apply -f is-allowed.yaml
+
+kubectl get all
+
+kubectl delete -f limited_container_template.yaml
+kubectl delete -f constraint.yaml
+kubectl delete -f is-allowed.yaml
+
+
+
+														image_tag:
+
+cd C:\Users\Enrico\OneDrive\Desktop\template_constarint_test\policy_test\image_tag
+		
+kubectl apply -f image_tag_template.yaml
+
+kubectl apply -f image_tag_constraint.yaml
+
+kubectl apply -f not-allawod-tag-leatest.yaml
+
+kubectl apply -f is-allowed.yaml	
+
+kubectl apply -f not-alloved-tag-2.yaml
+
+
+
+kubectl get deployments
+
+kubectl delete -f image_tag_template.yaml
+kubectl delete image_tag_constraint.yaml
+kubectl delete -f is-allowed.yaml
+kubectl delete -f not-allawod-tag-leatest.yaml
+kubectl delete -f not-alloved-tag-2.yaml
+
+									privileges_deprecated:
+
+cd C:\Users\Enrico\OneDrive\Desktop\template_constarint_test\policy_test\privileges_deprecated
+
+
+kubectl apply -f privilege_deprecated_template.yaml
+
+kubectl apply -f privilege_flag_constraint.yaml
+
+kubectl apply -f not-allowed-1.yaml
+
+kubectl apply -f is-allowed.yaml
+
+kubectl get all
+
+kubectl delete -f privilege_deprecated_template.yaml
+kubectl delete privilege_flag_constraint.yaml
+kubectl delete -f is-allowed.yaml
+
+
+
+
+
+							repositories_allowed:
+
+cd C:\Users\Enrico\OneDrive\Desktop\template_constarint_test\policy_test\repositories_allowed
+		
+kubectl apply -f reposiories_allowed_template.yaml
+
+kubectl apply -f constraints_myrepository.yaml
+
+
+
+kubectl apply -f not-allow-miss-repository.yaml
+
+kubectl apply -f not-allowed-wrong-repository.yaml
+
+kubectl apply -f is-allowed.yaml
+
+kubectl get pods
+
+
+kubectl delete -f reposiories_allowed_template.yaml
+
+kubectl delete -f constraints_myrepository.yaml
+
+kubectl delete -f is-allowed.yaml
+
+kubectl get pods
+
+
+
+
+								
+							labels required:
+
+cd C:\Users\Enrico\OneDrive\Desktop\template_constarint_test\policy_test\labels_required
+
+kubectl apply -f labels_required_template.yaml
+
+kubectl apply -f constraint_namespace_env.yaml
+
+
+kubectl apply -f label-not-allowed.yaml
+
+kubectl apply -f label-not-allowed-bis.yaml
+
+kubectl apply -f label-is-allowed.yaml
+
+kubectl get namespaces
+
+kubectl delete -f labels_required_template.yaml
+
+kubectl delete -f label-is-allowed.yaml
+
+kubectl get namespaces
+
+
+
+
+								COMANDI GESTIONE CLUSTER
+
+
+	applicare yaml
+kubectl apply -f example-constraint-template.yaml
+
+	verificare creazione risorsa
+kubectl get constrainttemplates
+
+	
+
+	kubectl describe "risorsa"
+esempio --> kubectl describe constraint
+
+	kubectl apply -f no-loadbalancer-templates.yaml
+	kubectl apply -f no-loadbalancer-constraint.yaml 
+
+	kubectl get crd
+	kubectl get loadbalancerconstraint
+	kubectl get loadbalancerconstraint loadbalancerconstraint -o yaml
+
+	kubectl create ns opa-test
+	kubectl apply -f lb-service.yaml
+
+
+passi:
+1---> installa gatekeeper nel cluster
+2--->crea constraint template in REGO
+3--->crea constraint CRD
+4---> crea deploy e test constraint
+5---> osserva l'enforcement
+
+
+kind create cluster
+
+kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/master/deploy/gatekeeper.yaml
+	posso vedere manifesto qui:	https://github.com/open-policy-agent/gatekeeper/blob/master/deploy/gatekeeper.yaml
+
+
+
+
+					CLUSTER:
+crea cluster
+	kind create cluster
+
+crea cluster definendo nome 
+	kind create cluster --name "nome cluster"
+
+visualizzare cluster
+	kind get clusters
+
+per interagire e avere info speciofica nome cluster
+	kubectl cluster-info --context kind-"nome cluster"
+
+cancellare cluster
+	kind delete cluster --name "nome cluster"
+
+caricare immagine docker nel cluster
+	kind load docker-image my-custom-image-0 my-custom-image-1 --name "nome cluster"
+
+PER INTERAGIRE CON KUBERNETES USO:
+	kubectl command type name flags
+command: specifica operazione : create, get describe, delete
+type: specifica la risorsa pod,pods,po
+name: il nome della risorsa
+flag: spefica la flag opzionale
+
+
+
+varie
+kubectl get node
+kubectl get pod
+kubectl get svc
+kubectl get all
+kubectl get deployments
+kubectl get services
+kubectl get ingress
+
+
+
+					DOCKER:
+
+
+
+docker logout
+
+
+	docker login
+
+	docker image build -t web_app
+
+	
+
+per reneming su dockerhub 	docker tag web_app perrea/progetto_tesi
+
+per pushare 	docker push perrea/progetto_tesi
+
+	docker build -t progetto_tesi .
+
+	docker tag progetto_tesi perrea/progetto_tesi:progetto_tesi
+
+	docker push perrea/progetto_tesi:progetto_tesi
+	
+
+
+
+struttura web_app
+	---->app.py
+	---->dockerfile
+	---->requirement.txt
+	---->venv
+
+
+come creare immagine
+
+	docker build --tag "imagine name"
+oppure
+	docker image build -t "nome immagine .
+
+

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: container-limit-allowed
+spec:
+  containers:
+    - name: mongo
+      image: perrea/mongo:5.0
+      resources:
+        limits:
+          cpu: "100m"
+          memory: "1Gi"

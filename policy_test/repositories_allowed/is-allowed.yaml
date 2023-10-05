@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: container-trusted-repository
+spec:
+  containers:
+    - name: mongo
+      image: perrea/mongo:v1

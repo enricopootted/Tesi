@@ -1,0 +1,27 @@
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8simagetagvalid
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sImageTagValid
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8simagetagvalid
+
+        violation[{"msg": msg, "details":{}}] {
+          image := input.review.object.spec.template.spec.containers[_].image
+          not count(split(image, ":")) == 2
+          msg := sprintf("immagine non utilizza un tag", [image]) }
+                                                                      
+       
+
+        violation[{"msg": msg, "details":{}}] {
+          image := input.review.object.spec.template.spec.containers[_].image
+          tag := split(image, ":")[1]
+          contains(tag, "latest")
+          msg := sprintf("l'immagine utilizza un tag che contiene 'latest'", [image])
+        }
